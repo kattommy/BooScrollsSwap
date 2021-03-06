@@ -9,16 +9,16 @@ import javax.persistence.ManyToOne;
 
 @Data
 @Entity
-public class Note {
+public class BookReview {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private String notes;
-
     @ManyToOne
     private User user;
     @ManyToOne
-    private BookCopy bookCopy;
+    private Book book;
+    private String review;
+
 }
