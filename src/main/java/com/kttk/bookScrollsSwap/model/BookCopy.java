@@ -25,4 +25,7 @@ public class BookCopy {
 
     @Enumerated(value = EnumType.STRING)
     private BookQuality quality;
+
+    @ManyToOne
+    private User owner;
 }
