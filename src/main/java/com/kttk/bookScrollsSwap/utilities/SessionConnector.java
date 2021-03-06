@@ -20,6 +20,10 @@ public class SessionConnector {
     }
 
     public SessionFactory createFactory(){
-        return configure.buildSessionFactory();
+         return configure.configure("hibernate.cfg.xml").buildSessionFactory();
+    }
+
+    public SessionFactory createH2Factory(){
+        return configure.configure("hibernate-h2.cfg.xml").buildSessionFactory();
     }
 }
