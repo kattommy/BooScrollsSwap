@@ -25,7 +25,7 @@ class SessionConnectorTest {
 
     @Test
     void createFactory() {
-        EntityManagerFactory factory = instance.createFactory();
+        EntityManagerFactory factory = instance.createH2Factory();
 
         assertNotNull(factory);
     }
