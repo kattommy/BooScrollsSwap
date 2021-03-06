@@ -11,9 +11,14 @@ import java.util.List;
 
 public class NoteDao implements BaseDaoCrud <Note, Long> {
 
+    private final EntityManager entityManager;
+
+    public NoteDao(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
     @Override
     public List<Note> findAll() {
-        EntityManager entityManager = SessionConnector.createFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -29,7 +34,6 @@ public class NoteDao implements BaseDaoCrud <Note, Long> {
 
     @Override
     public Note findById(Long id) {
-        EntityManager entityManager = SessionConnector.createFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -42,8 +46,7 @@ public class NoteDao implements BaseDaoCrud <Note, Long> {
     }
 
     @Override
-    public Note add(Note toAdd) {
-        EntityManager entityManager = SessionConnector.createFactory().createEntityManager();
+    public Note save(Note toAdd) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -57,7 +60,6 @@ public class NoteDao implements BaseDaoCrud <Note, Long> {
 
     @Override
     public void deleteById(Long id) {
-        EntityManager entityManager = SessionConnector.createFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -66,5 +68,21 @@ public class NoteDao implements BaseDaoCrud <Note, Long> {
 
         transaction.commit();
         entityManager.close();
+    }
+
+    @Override
+    public Note update(Note updatedItem) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        Note toUpdate = entityManager.find(Note.class, updatedItem.getId());
+        toUpdate.setUser(updatedItem.getUser());
+        toUpdate.setBookCopy(updatedItem.getBookCopy());
+        toUpdate.setNotes(updatedItem.getNotes());
+
+        transaction.commit();
+        entityManager.close();
+
+        return toUpdate;
     }
 }

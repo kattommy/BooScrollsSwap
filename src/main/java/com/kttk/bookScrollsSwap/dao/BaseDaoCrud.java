@@ -11,7 +11,9 @@ public interface BaseDaoCrud<T, ID>{
 
     T findById(ID id);
 
-    T add(T toAdd);
+    T save(T toAdd);
 
     void deleteById(ID id);
+
+    T update(T toUpdate);
 }

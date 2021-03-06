@@ -1,9 +1,6 @@
 package com.kttk.bookScrollsSwap.dao;
 
-import com.kttk.bookScrollsSwap.model.Book;
 import com.kttk.bookScrollsSwap.model.BookReview;
-import com.kttk.bookScrollsSwap.model.Note;
-import com.kttk.bookScrollsSwap.services.BaseCrud;
 import com.kttk.bookScrollsSwap.utilities.SessionConnector;
 
 import javax.persistence.EntityManager;
@@ -14,9 +11,14 @@ import java.util.List;
 
 public class BookReviewDao implements BaseDaoCrud<BookReview, Long> {
 
+    private final EntityManager entityManager;
+
+    public BookReviewDao(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
     @Override
     public List<BookReview> findAll() {
-        EntityManager entityManager = SessionConnector.createFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -31,7 +33,6 @@ public class BookReviewDao implements BaseDaoCrud<BookReview, Long> {
 
     @Override
     public BookReview findById(Long id) {
-        EntityManager entityManager = SessionConnector.createFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -44,8 +45,7 @@ public class BookReviewDao implements BaseDaoCrud<BookReview, Long> {
     }
 
     @Override
-    public BookReview add(BookReview toAdd) {
-        EntityManager entityManager = SessionConnector.createFactory().createEntityManager();
+    public BookReview save(BookReview toAdd) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -60,7 +60,6 @@ public class BookReviewDao implements BaseDaoCrud<BookReview, Long> {
 
     @Override
     public void deleteById(Long id) {
-        EntityManager entityManager = SessionConnector.createFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -69,5 +68,20 @@ public class BookReviewDao implements BaseDaoCrud<BookReview, Long> {
 
         transaction.commit();
         entityManager.close();
+    }
+
+    @Override
+    public BookReview update(BookReview updatedItem) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        BookReview toUpdate = entityManager.find(BookReview.class, updatedItem.getId());
+        toUpdate.setUser(updatedItem.getUser());
+        toUpdate.setBook(updatedItem.getBook());
+        toUpdate.setReview(updatedItem.getReview());
+
+        transaction.commit();
+        entityManager.close();
+        return toUpdate;
     }
 }
