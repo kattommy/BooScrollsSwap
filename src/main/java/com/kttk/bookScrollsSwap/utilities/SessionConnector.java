@@ -5,9 +5,16 @@ import org.hibernate.cfg.Configuration;
 
 public class SessionConnector {
 
+    private static SessionConnector instance;
 
-    public static SessionFactory createFactory() {
+    private SessionConnector(){
         Configuration configure = new Configuration().configure();
-        return configure.buildSessionFactory();
+    }
+
+    public SessionConnector getInstance() {
+        if (instance == null) {
+           instance = new SessionConnector();
+        }
+        return this;
     }
 }
