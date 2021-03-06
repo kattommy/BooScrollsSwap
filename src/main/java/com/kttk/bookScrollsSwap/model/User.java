@@ -1,5 +1,6 @@
 package com.kttk.bookScrollsSwap.model;
 
+import com.kttk.bookScrollsSwap.enums.UserStatus;
 import lombok.Data;
 import org.hibernate.type.LocalDateType;
 
@@ -15,7 +16,7 @@ public class User {
     private String email;
     private String password;
     private LocalDateType registrationDate;
-    private String status;
+    private UserStatus status;
     private Set<User> friends = new HashSet();
 
 }
