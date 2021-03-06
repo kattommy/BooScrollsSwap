@@ -17,8 +17,10 @@ public class BookReview {
 
     @ManyToOne
     private User user;
+
     @ManyToOne
     private Book book;
+
     private String review;
 
 }

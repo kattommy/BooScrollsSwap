@@ -22,6 +22,11 @@ public class Author {
     private String firstName;
     private String lastName;
 
-    @OneToMany
+    @OneToMany(mappedBy = "author")
     private Set<Book> books;
+
+    public void addBook(Book book){
+        books.add(book);
+        book.setAuthor(this);
+    }
 }

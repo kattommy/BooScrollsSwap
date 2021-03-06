@@ -10,7 +10,7 @@ import java.util.Set;
  * Created by Tom - 06.03.2021
  */
 @Data
-@EqualsAndHashCode(exclude = "author")
+@EqualsAndHashCode(exclude = {"bookCopies", "reviews"})
 @Entity
 public class Book {
 
@@ -20,11 +20,25 @@ public class Book {
 
     private String title;
 
-    @OneToOne
+    @ManyToOne
     private Author author;
+
     private String Publisher;
     private String isbn;
 
-    @OneToMany
+    @OneToMany(mappedBy = "book")
     private Set<BookCopy> bookCopies;
+
+    @OneToMany(mappedBy = "book")
+    private Set<BookReview> reviews;
+
+    public void addBookCopy(BookCopy bookCopy){
+        bookCopies.add(bookCopy);
+        bookCopy.setBook(this);
+    }
+
+    public void addBookReview(BookReview bookReview){
+        reviews.add(bookReview);
+        bookReview.setBook(this);
+    }
 }

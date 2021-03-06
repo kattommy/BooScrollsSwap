@@ -19,6 +19,7 @@ public class Note {
 
     @ManyToOne
     private User user;
+
     @ManyToOne
     private BookCopy bookCopy;
 }
