@@ -12,14 +12,14 @@ public class SessionConnector {
        configure = new Configuration().configure();
     }
 
-    public SessionConnector getInstance() {
+    public static SessionConnector getInstance() {
         if (instance == null) {
            instance = new SessionConnector();
         }
-        return this;
+        return instance;
     }
 
-    public static SessionFactory createFactory(){
+    public SessionFactory createFactory(){
         return configure.buildSessionFactory();
     }
 }
