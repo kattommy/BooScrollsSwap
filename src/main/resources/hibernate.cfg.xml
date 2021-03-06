@@ -12,5 +12,12 @@
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="hibernate.hbm2ddl.auto">create</property>
+
+        <mapping class="com.kttk.bookScrollsSwap.model.Author"></mapping>
+        <mapping class="com.kttk.bookScrollsSwap.model.Book"></mapping>
+        <mapping class="com.kttk.bookScrollsSwap.model.BookCopy"></mapping>
+        <mapping class="com.kttk.bookScrollsSwap.model.Note"></mapping>
+        <mapping class="com.kttk.bookScrollsSwap.model.User"></mapping>
+        <mapping class="com.kttk.bookScrollsSwap.model.BookReview"></mapping>
     </session-factory>
 </hibernate-configuration>
