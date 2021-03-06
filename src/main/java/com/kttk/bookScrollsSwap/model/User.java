@@ -16,6 +16,6 @@ public class User {
     private String password;
     private LocalDateType registrationDate;
     private String status;
-    private Set friends = new HashSet();
+    private Set<User> friends = new HashSet();
 
 }
