@@ -1,24 +1,25 @@
 package com.kttk.bookScrollsSwap.dao;
 
 import com.kttk.bookScrollsSwap.model.BookReview;
-import com.kttk.bookScrollsSwap.utilities.SessionConnector;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 
-public class BookReviewDao implements BaseDaoCrud<BookReview, Long> {
+public class BookReviewDaoImpl implements BaseDaoCrud<BookReview, Long> {
 
-    private final EntityManager entityManager;
+    private final EntityManagerFactory factory;
 
-    public BookReviewDao(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public BookReviewDaoImpl(EntityManagerFactory factory) {
+        this.factory = factory;
     }
 
     @Override
     public List<BookReview> findAll() {
+        final EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -33,6 +34,7 @@ public class BookReviewDao implements BaseDaoCrud<BookReview, Long> {
 
     @Override
     public BookReview findById(Long id) {
+        final EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -46,6 +48,7 @@ public class BookReviewDao implements BaseDaoCrud<BookReview, Long> {
 
     @Override
     public BookReview save(BookReview toAdd) {
+        final EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -60,6 +63,7 @@ public class BookReviewDao implements BaseDaoCrud<BookReview, Long> {
 
     @Override
     public void deleteById(Long id) {
+        final EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -72,6 +76,7 @@ public class BookReviewDao implements BaseDaoCrud<BookReview, Long> {
 
     @Override
     public BookReview update(BookReview updatedItem) {
+        final EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
