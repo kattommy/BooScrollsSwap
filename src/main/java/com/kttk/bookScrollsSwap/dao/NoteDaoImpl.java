@@ -1,24 +1,25 @@
 package com.kttk.bookScrollsSwap.dao;
 
 import com.kttk.bookScrollsSwap.model.Note;
-import com.kttk.bookScrollsSwap.utilities.SessionConnector;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 
-public class NoteDao implements BaseDaoCrud <Note, Long> {
+public class NoteDaoImpl implements BaseDaoCrud <Note, Long> {
 
-    private final EntityManager entityManager;
+    private final EntityManagerFactory factory;
 
-    public NoteDao(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public NoteDaoImpl(EntityManagerFactory factory) {
+        this.factory = factory;
     }
 
     @Override
     public List<Note> findAll() {
+        final EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -27,13 +28,12 @@ public class NoteDao implements BaseDaoCrud <Note, Long> {
 
         transaction.commit();
         entityManager.close();
-
-
         return notes;
     }
 
     @Override
     public Note findById(Long id) {
+        final EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -47,6 +47,7 @@ public class NoteDao implements BaseDaoCrud <Note, Long> {
 
     @Override
     public Note save(Note toAdd) {
+        final EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -60,6 +61,7 @@ public class NoteDao implements BaseDaoCrud <Note, Long> {
 
     @Override
     public void deleteById(Long id) {
+        final EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
@@ -72,6 +74,7 @@ public class NoteDao implements BaseDaoCrud <Note, Long> {
 
     @Override
     public Note update(Note updatedItem) {
+        final EntityManager entityManager = factory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
 
