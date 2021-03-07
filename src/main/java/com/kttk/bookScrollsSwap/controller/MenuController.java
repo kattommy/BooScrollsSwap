@@ -1,11 +1,18 @@
 package com.kttk.bookScrollsSwap.controller;
 
 
+import com.kttk.bookScrollsSwap.model.User;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class MenuController {
+   private final UserController userController;
+
+    public MenuController(UserController userController) {
+        this.userController = userController;
+    }
 
     public void run() {
         Scanner sc = new Scanner(System.in);
@@ -17,7 +24,7 @@ public class MenuController {
 
             switch (option) {
                 case 1:
-                    UserController.createUser();
+                    userController.createUser();
                     break;
                 case 2:
                     System.out.println("You are leaving the application, please come back");
