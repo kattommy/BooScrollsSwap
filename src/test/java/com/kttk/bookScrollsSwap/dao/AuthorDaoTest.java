@@ -37,9 +37,9 @@ class AuthorDaoTest {
 
     @Test
     void findById() {
-        dao.save(author);
+        Author savedAuthor = dao.save(author);
 
-        final Author foundAuthor = dao.find(Author.class,author.getId());
+        final Author foundAuthor = dao.find(Author.class,savedAuthor.getId());
 
         assertNotNull(foundAuthor);
         assertEquals("Mickiewicz",foundAuthor.getLastName());
@@ -55,9 +55,9 @@ class AuthorDaoTest {
 
     @Test
     void deleteById() {
-        dao.save(author);
+        Author deleteAuthor = dao.save(author);
 
-        dao.deleteById(Author.class,author.getId());
+        dao.deleteById(Author.class,deleteAuthor.getId());
 
         final Author authorById = dao.find(Author.class,author.getId());
 
