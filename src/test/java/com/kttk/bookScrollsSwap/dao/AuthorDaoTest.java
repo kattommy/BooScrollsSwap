@@ -26,9 +26,9 @@ class AuthorDaoTest {
 
     @Test
     void findAll() {
-        Author secondReview = new Author();
+        Author secondAuthor = new Author();
         dao.save(author);
-        dao.save(secondReview);
+        dao.save(secondAuthor);
 
         final List<Author> authors = dao.findAll(Author.class);
 
