@@ -1,99 +1,74 @@
 package com.kttk.bookScrollsSwap.dao;
 
-import com.kttk.bookScrollsSwap.utilities.SessionConnector;
-
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-class GeneralDao {
+class GeneralDao{
 
-    private static EntityManager entityManager;
+    private final EntityManagerFactory factory;
 
-    GeneralDao(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public GeneralDao(EntityManagerFactory factory) {
+        this.factory = factory;
     }
 
-    public static <T> T save(T entity) {
-        try {
-            entityManager = SessionConnector.getInstance().createFactory().createEntityManager();
-            EntityTransaction transaction = entityManager.getTransaction();
-            transaction.begin();
+    public <T> T save(T entity) {
+        final EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
 
-            entityManager.persist(entity);
-            transaction.commit();
+        entityManager.persist(entity);
+        transaction.commit();
 
-            return entity;
+        entityManager.close();
 
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
-        }
+        return entity;
     }
 
-    public static <T> List<T> findAll(Class<T> type) {
-        try {
-            EntityTransaction transaction = entityManager.getTransaction();
-            transaction.begin();
-            String from = "from " + type.getName();
-            List<T> entities = entityManager.createQuery(from, type).getResultList();
+    public <T> List<T> findAll(Class<T> type) {
+        final EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        String from = "from " + type.getName();
+        List<T> entities = entityManager.createQuery(from, type).getResultList();
 
-            transaction.commit();
-            return entities;
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
-        }
+        transaction.commit();
+        entityManager.close();
+        return entities;
     }
 
-    public static <T> T find(Class<T> type, Long id) {
-        try {
-            entityManager = SessionConnector.getInstance().createFactory().createEntityManager();
-            EntityTransaction transaction = entityManager.getTransaction();
-            transaction.begin();
+    public <T> T find(Class<T> type, Long id) {
+        final EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
 
-            T entity = entityManager.find(type, id);
-            transaction.commit();
+        T entity = entityManager.find(type, id);
+        transaction.commit();
 
-            return entity;
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
-        }
+        entityManager.close();
+        return entity;
     }
 
-    public static <T> T update(T entity) {
-        try {
-            entityManager = SessionConnector.getInstance().createFactory().createEntityManager();
-            EntityTransaction transaction = entityManager.getTransaction();
-            transaction.begin();
+    public <T> T update(T entity) {
+        final EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
 
-            T updatedEntity = entityManager.merge(entity);
-            transaction.commit();
+        T updatedEntity = entityManager.merge(entity);
+        transaction.commit();
+        entityManager.close();
 
-            return updatedEntity;
-
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
-        }
+        return updatedEntity;
     }
 
-    public static <T> void deleteById(Class<T> type, Long id) {
-        try {
-            EntityTransaction transaction = entityManager.getTransaction();
-            transaction.begin();
-            T entity = entityManager.find(type, id);
-            entityManager.remove(entity);
-            transaction.commit();
-        } finally {
-            if (entityManager != null) {
-                entityManager.close();
-            }
-        }
+    public <T> void deleteById(Class<T> type, Long id) {
+        final EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        T entity = entityManager.find(type, id);
+        entityManager.remove(entity);
+        transaction.commit();
+        entityManager.close();
     }
 }

@@ -29,7 +29,7 @@ class BookReviewDaoImplTest {
         dao.save(bookReview);
         dao.save(secondReview);
 
-        final List<BookReview> bookReviews = dao.findAll();
+        final List<BookReview> bookReviews = dao.findAll(BookReview.class);
 
         assertEquals(2, bookReviews.size());
     }
@@ -38,7 +38,7 @@ class BookReviewDaoImplTest {
     void findById() {
         dao.save(bookReview);
 
-        final BookReview foundBookReview = dao.findById(1L);
+        final BookReview foundBookReview = dao.find(BookReview.class,1L);
 
         assertNotNull(foundBookReview);
         assertEquals("Niece Review",foundBookReview.getReview());
@@ -55,9 +55,9 @@ class BookReviewDaoImplTest {
     void deleteById() {
         dao.save(bookReview);
 
-        dao.deleteById(1L);
+        dao.deleteById(BookReview.class,1L);
 
-        final BookReview bookReviewById = dao.findById(1L);
+        final BookReview bookReviewById = dao.find(BookReview.class,1L);
 
         assertNull(bookReviewById);
     }

@@ -1,42 +1,37 @@
 package com.kttk.bookScrollsSwap.dao;
 
-import com.kttk.bookScrollsSwap.model.User;
-
-import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 
-public class UserDao implements BaseDaoCrud<User, Long> {
+public class UserDao extends GeneralDao {
 
-    private final EntityManager entityManager;
-
-    public UserDao(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public UserDao(EntityManagerFactory factory) {
+        super(factory);
     }
 
     @Override
-    public List<User> findAll() {
-        return GeneralDao.findAll(User.class);
+    public <T> T save(T entity) {
+        return super.save(entity);
     }
 
     @Override
-    public User findById(Long id) {
-       return GeneralDao.find(User.class, id);
+    public <T> List<T> findAll(Class<T> type) {
+        return super.findAll(type);
     }
 
     @Override
-    public User save(User toAdd) {
-       return GeneralDao.save(toAdd);
-    }
-
-
-    @Override
-    public void deleteById(Long id) {
-        GeneralDao.deleteById(User.class, id);
+    public <T> T find(Class<T> type, Long id) {
+        return super.find(type, id);
     }
 
     @Override
-    public User update(User updatedItem) {
-       return GeneralDao.update(updatedItem);
+    public <T> T update(T entity) {
+        return super.update(entity);
+    }
+
+    @Override
+    public <T> void deleteById(Class<T> type, Long id) {
+        super.deleteById(type, id);
     }
 }
