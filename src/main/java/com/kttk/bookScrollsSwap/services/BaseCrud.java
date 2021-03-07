@@ -1,17 +1,19 @@
 package com.kttk.bookScrollsSwap.services;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by Tom - 06.03.2021
  */
 public interface BaseCrud<T,ID> {
 
-    Set<T> findAll();
+    List<T> findAll();
 
     T findById(ID id);
 
-    T save(T author);
+    T save(T object);
 
-    T deleteById(ID id);
+    T update(T object);
+
+    void deleteById(ID id);
 }
