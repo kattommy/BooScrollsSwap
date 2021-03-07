@@ -1,5 +1,6 @@
 package com.kttk.bookScrollsSwap.controller;
 
+import com.kttk.bookScrollsSwap.model.User;
 import com.kttk.bookScrollsSwap.services.UserServiceImpl;
 import com.kttk.bookScrollsSwap.utilities.UserCreator;
 
@@ -11,12 +12,17 @@ public class UserController {
     }
 
 
-    public void createUser(){
-        UserCreator.createUser();
-
+    public void createUser() {
+        User user = UserCreator.createUser();
+        String email = user.getEmail();
+        if (userService.findByEmail(email).isEmpty()) {
+            userService.save(user);
+        } else {
+            System.out.println("This email exist. Use another email");
+            createUser();
+        }
     }
-
-    public void login(){
+    public void login() {
 
     }
 }
