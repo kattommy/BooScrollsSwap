@@ -17,7 +17,7 @@ public class MenuController {
 
             switch (option) {
                 case 1:
-                    System.out.println("--------------Wywołanie metod z klas serwisowych----------------");
+                    System.out.println("---- wywołanie metod z controllerów ----  a w controllerach wywołanie metod z klas serwisowych1,");
                     break;
                 case 2:
                     System.out.println("You are leaving the application, please come back");

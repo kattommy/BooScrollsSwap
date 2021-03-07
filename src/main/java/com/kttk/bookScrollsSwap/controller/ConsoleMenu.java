@@ -16,9 +16,8 @@ public class ConsoleMenu {
     public void display() {
         System.out.println(header);
 
-        for (String option: options
-             ) {
-            System.out.format(Locale.ENGLISH, "  %d. %s%n", (option.indexOf(option) + 1), option.toString());
+        for (int i = 0; i < options.size(); i++) {
+            System.out.format(Locale.ENGLISH, "  %d. %s%n", (i + 1), options.get(i));
         }
         System.out.print("Choose your option: ");
     }
