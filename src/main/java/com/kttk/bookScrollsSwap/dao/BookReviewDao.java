@@ -4,9 +4,9 @@ import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 
-public class BookReviewDaoImpl extends GeneralDao{
+public class BookReviewDao extends GeneralDao{
 
-    public BookReviewDaoImpl(EntityManagerFactory factory) {
+    public BookReviewDao(EntityManagerFactory factory) {
         super(factory);
     }
 

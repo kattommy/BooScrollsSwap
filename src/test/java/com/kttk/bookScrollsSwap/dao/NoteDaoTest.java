@@ -9,15 +9,15 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NoteDaoImplTest {
+class NoteDaoTest {
 
-    NoteDaoImpl noteDao;
+    NoteDao noteDao;
 
     Note note;
 
     @BeforeEach
     void setUp() {
-        noteDao = new NoteDaoImpl(SessionConnector
+        noteDao = new NoteDao(SessionConnector
                 .getInstance()
                 .createH2Factory());
         note = new Note();

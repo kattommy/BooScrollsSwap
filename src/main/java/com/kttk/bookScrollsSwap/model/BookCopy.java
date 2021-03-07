@@ -28,4 +28,9 @@ public class BookCopy {
 
     @ManyToOne
     private User owner;
+
+    public void addOwner(User owner){
+        this.owner = owner;
+        owner.getOwnedBooks().add(this);
+    }
 }

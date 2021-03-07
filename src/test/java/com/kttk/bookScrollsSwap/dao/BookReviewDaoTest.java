@@ -9,15 +9,15 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BookReviewDaoImplTest {
+class BookReviewDaoTest {
 
-    BookReviewDaoImpl dao;
+    BookReviewDao dao;
 
     BookReview bookReview;
 
     @BeforeEach
     void setUp() {
-        dao = new BookReviewDaoImpl(SessionConnector.getInstance().createH2Factory());
+        dao = new BookReviewDao(SessionConnector.getInstance().createH2Factory());
 
         bookReview = new BookReview();
         bookReview.setReview("Niece Review");
