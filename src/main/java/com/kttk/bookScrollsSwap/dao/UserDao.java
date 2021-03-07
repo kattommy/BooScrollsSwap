@@ -4,9 +4,9 @@ import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 
-public class NoteDaoImpl extends GeneralDao {
+public class UserDao extends GeneralDao {
 
-    public NoteDaoImpl(EntityManagerFactory factory) {
+    public UserDao(EntityManagerFactory factory) {
         super(factory);
     }
 

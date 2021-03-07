@@ -31,7 +31,7 @@ class NoteDaoImplTest {
         noteDao.save(note);
         noteDao.save(note1);
 
-        final List<Note> noteList = noteDao.findAll();
+        final List<Note> noteList = noteDao.findAll(Note.class);
 
         assertEquals(2, noteList.size());
     }
@@ -40,7 +40,7 @@ class NoteDaoImplTest {
     void findById() {
         noteDao.save(note);
 
-        final Note byId = noteDao.findById(1L);
+        final Note byId = noteDao.find(Note.class,1L);
 
         assertNotNull(byId);
         assertEquals(1,byId.getId());
@@ -58,8 +58,8 @@ class NoteDaoImplTest {
     void deleteById() {
         final Note save = noteDao.save(note);
 
-        noteDao.deleteById(save.getId());
-        final Note findById = noteDao.findById(save.getId());
+        noteDao.deleteById(Note.class,save.getId());
+        final Note findById = noteDao.find(Note.class,save.getId());
 
         assertNull(findById);
     }
