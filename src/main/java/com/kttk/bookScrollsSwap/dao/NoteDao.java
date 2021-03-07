@@ -1,6 +1,7 @@
 package com.kttk.bookScrollsSwap.dao;
-
+import com.kttk.bookScrollsSwap.model.BookCopy;
 import com.kttk.bookScrollsSwap.model.Note;
+import com.kttk.bookScrollsSwap.model.User;
 import com.kttk.bookScrollsSwap.utilities.SessionConnector;
 
 import javax.persistence.EntityManager;
@@ -9,9 +10,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 
-public class NoteDao implements BaseDaoCrud <Note, Long> {
+public class NoteDao implements INoteDao {
 
-    private final EntityManager entityManager;
+    private EntityManager entityManager;
 
     public NoteDao(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -19,70 +20,45 @@ public class NoteDao implements BaseDaoCrud <Note, Long> {
 
     @Override
     public List<Note> findAll() {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
-        TypedQuery<Note> getAllUsersQuery = entityManager.createQuery("from Note", Note.class);
-        List<Note> notes = getAllUsersQuery.getResultList();
-
-        transaction.commit();
-        entityManager.close();
-
-
-        return notes;
+        return GeneralDao.findAll(Note.class);
     }
+    
 
     @Override
     public Note findById(Long id) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
-        Note note = entityManager.find(Note.class, id);
-
-        transaction.commit();
-        entityManager.close();
-
-        return note;
+       return GeneralDao.find(Note.class, id);
     }
 
     @Override
     public Note save(Note toAdd) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
-        entityManager.persist(toAdd);
-
-        transaction.commit();
-        entityManager.close();
-
-        return toAdd;
+       return GeneralDao.save(toAdd);
     }
+
 
     @Override
     public void deleteById(Long id) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
-        Note note = entityManager.find(Note.class, id);
-        entityManager.remove(note);
-
-        transaction.commit();
-        entityManager.close();
+        GeneralDao.deleteById(Note.class, id);
     }
 
     @Override
     public Note update(Note updatedItem) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
+       return GeneralDao.update(updatedItem);
+    }
 
-        Note toUpdate = entityManager.find(Note.class, updatedItem.getId());
-        toUpdate.setUser(updatedItem.getUser());
-        toUpdate.setBookCopy(updatedItem.getBookCopy());
-        toUpdate.setNotes(updatedItem.getNotes());
+    @Override
+    public List<Note> findByUser(User user) {
 
-        transaction.commit();
-        entityManager.close();
+        TypedQuery<Note> getAllNotes = entityManager.createQuery("select n from Note n " +
+                "inner join fetch n.user_id u where u = " + user.getId(), Note.class);
 
-        return toUpdate;
+        return getAllNotes.getResultList();
+    }
+
+    @Override
+    public List<Note> findByBookCopy(BookCopy bookCopy) {
+        TypedQuery<Note> getAllNotes = entityManager.createQuery("select n from Note n " +
+                "inner join fetch n.bookCopy_id u where u = " + bookCopy.getId(), Note.class);
+
+        return getAllNotes.getResultList();
     }
 }
