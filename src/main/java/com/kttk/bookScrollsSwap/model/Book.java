@@ -1,9 +1,12 @@
 package com.kttk.bookScrollsSwap.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -11,6 +14,7 @@ import java.util.Set;
  */
 @Data
 @EqualsAndHashCode(exclude = {"bookCopies", "reviews"})
+@NoArgsConstructor
 @Entity
 public class Book {
 
@@ -33,12 +37,26 @@ public class Book {
     private Set<BookReview> reviews;
 
     public void addBookCopy(BookCopy bookCopy){
+        if(bookCopies == null){
+            bookCopies = new HashSet<>();
+        }
         bookCopies.add(bookCopy);
         bookCopy.setBook(this);
     }
 
     public void addBookReview(BookReview bookReview){
+        if(reviews == null){
+            reviews = new HashSet<>();
+        }
         reviews.add(bookReview);
         bookReview.setBook(this);
+    }
+
+    @Builder
+    public Book(String title, Author author, String publisher, String isbn) {
+        this.title = title;
+        this.author = author;
+        Publisher = publisher;
+        this.isbn = isbn;
     }
 }

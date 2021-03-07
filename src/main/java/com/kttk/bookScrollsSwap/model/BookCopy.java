@@ -2,7 +2,10 @@ package com.kttk.bookScrollsSwap.model;
 
 import com.kttk.bookScrollsSwap.enums.BookQuality;
 import com.kttk.bookScrollsSwap.enums.BookState;
+import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,6 +13,8 @@ import javax.persistence.*;
  * Created by Tom - 06.03.2021
  */
 @Data
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = {"note","owner"})
 @Entity
 public class BookCopy {
 
@@ -29,8 +34,19 @@ public class BookCopy {
     @ManyToOne
     private User owner;
 
+    @OneToOne
+    private Note note;
+
     public void addOwner(User owner){
         this.owner = owner;
         owner.getOwnedBooks().add(this);
+    }
+
+    @Builder
+    public BookCopy(Book book, BookState state, BookQuality quality, User owner) {
+        this.book = book;
+        this.state = state;
+        this.quality = quality;
+        this.owner = owner;
     }
 }
