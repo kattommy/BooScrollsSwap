@@ -37,9 +37,9 @@ class UserDaoTest {
 
     @Test
     void findById() {
-        dao.save(user);
+        User savedUser = dao.save(user);
 
-        final User foundUser = dao.find(User.class,1L);
+        final User foundUser = dao.find(User.class, savedUser.getId());
 
         assertNotNull(foundUser);
         assertEquals("Misiewicz",foundUser.getLastName());
@@ -54,11 +54,11 @@ class UserDaoTest {
 
     @Test
     void deleteById() {
-        dao.save(user);
+       User deleteUser = dao.save(user);
 
-        dao.deleteById(User.class,1L);
+        dao.deleteById(User.class,deleteUser.getId());
 
-        final User userById = dao.find(User.class,1L);
+        final User userById = dao.find(User.class,user.getId());
 
         assertNull(userById);
     }
