@@ -7,7 +7,7 @@ import java.util.List;
 
 class GeneralDao{
 
-    private final EntityManagerFactory factory;
+    protected final EntityManagerFactory factory;
 
     public GeneralDao(EntityManagerFactory factory) {
         this.factory = factory;

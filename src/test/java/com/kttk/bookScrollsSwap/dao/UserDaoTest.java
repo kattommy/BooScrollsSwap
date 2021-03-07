@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -72,4 +73,17 @@ class UserDaoTest {
 
         assertEquals("Katarzyna",updated.getFirstName());
     }
+
+    @Test
+    void findByPassword() {
+        String EMAIL = "tomek@tk.com";
+        user.setEmail(EMAIL);
+        dao.save(user);
+
+        final Optional<User> byPassword = dao.findByEmail(EMAIL);
+
+        assertTrue(byPassword.isPresent());
+        assertEquals(EMAIL, byPassword.get().getEmail());
+    }
+
 }
